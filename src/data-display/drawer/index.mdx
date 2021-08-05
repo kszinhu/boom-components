@@ -3,13 +3,256 @@ name: Drawer
 menu: Data Display
 ---
 
-import { Playground, Props } from 'docz'
+import { Playground, Props } from "docz";
 
-import Drawer from './Drawer'
+import Drawer from "./Drawer.js"; // For initial tests only
+import Button from "../../general/button/Button.js";
+import Radio from "../../data-entry/radio/Radio.js";
 
 # Drawer
 
-Drawer component.
+Um painel que desliza a partir da borda da janela.
+
+## Quando utilizar
+
+Tendo o comportamento de um painel que desliza lateralmente sobrepondo a página com um conjunto de informações. E uma vez que o usuário pode interagir com o Drawer sem sair da aplicação/página atual, tarefas podem ser realizadas de forma eficiente.
+
+- Quando necessário um formulário para criar/editar um conjunto de informações.
+- Quando o mesmo formulário é necessário em vários lugares.
+- Quando queremos manter as subtarefas no contexto da tarefa principal.
+
+## Uso básico
+
+<Playground>
+{
+  () => {
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+
+    const closeDrawer = () => {
+      setIsDrawerOpen(false);
+    };
+
+    const toggleDrawer = () => {
+      setIsDrawerOpen(!isDrawerOpen);
+    };
+
+    return (
+      <>
+        <Button onClick={() => toggleDrawer()}>Open Drawer</Button>
+        <Drawer
+          visible={isDrawerOpen}
+          handleClose={closeDrawer}
+          title={"Drawer Title"}
+        >
+          <p>Drawer Content</p>
+          <p>Some more content</p>
+          <img src="https://placehold.it/300x300" />
+        </Drawer>
+      </>
+    );
+
+} }
+
+</Playground>
+
+É possível alterar a localização do Drawer com o atributo "placement", podendo aparecer em qualquer borda da tela.
+
+<Playground>
+{
+  () => {
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const [placement, setPlacement] = React.useState("right");
+
+    const closeDrawer = () => {
+      setIsDrawerOpen(false);
+    };
+
+    const toggleDrawer = () => {
+      setIsDrawerOpen(!isDrawerOpen);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '1em' }}>
+        <div style={{ display: 'flex', marginBottom: '1em' }}>
+          <Radio id="1" name="radio-simples" value="right" label="Direita"
+            defaultChecked onChange={e =>  setPlacement(e.target.value)} />
+          <Radio id="2" name="radio-simples" value="left" label="Esquerda"
+            onChange={e => setPlacement(e.target.value) } />
+          <Radio id="3" name="radio-simples" value="top" label="Topo"
+            onChange={e => setPlacement(e.target.value) } />
+          <Radio id="4" name="radio-simples" value="bottom" label="Baixo"
+          onChange={e => setPlacement(e.target.value) } />
+        </div>
+        <Button onClick={() => toggleDrawer()}>Open Drawer</Button>
+        <Drawer
+          visible={isDrawerOpen}
+          handleClose={closeDrawer}
+          title={"Drawer Title"}
+          placement={placement}
+        >
+          <div>
+            <h3>Title inside the drawer</h3>
+            <img
+              alt="example"
+              style={{ width: "100%", borderRadius: "4px" }}
+              src="https://images.unsplash.com/photo-1523597020744-b68b1edd3e1c"
+            />
+            <p>You can assign a div with a footer on Body</p>
+          </div>
+        </Drawer>
+      </div>
+    );
+  }
+}
+
+</Playground>
+
+## Exemplos
+
+### Inserindo formulário
+
+É possível inserir um formulário dentro do Drawer, assim como o abaixo simulando um formulário de login.
+
+<Playground>
+{
+  () => {
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+
+    const closeDrawer = () => {
+      setIsDrawerOpen(false);
+    };
+
+    const toggleDrawer = () => {
+      setIsDrawerOpen(!isDrawerOpen);
+    };
+
+    return (
+      <>
+        <Button onClick={() => toggleDrawer()}>Register Drawer</Button>
+        <Drawer
+          visible={isDrawerOpen}
+          handleClose={closeDrawer}
+          title={"Drawer Title"}
+          backdrop={false}
+        >
+          <div
+            style={{
+              margin: "1em",
+              padding: "20px",
+              border: "2px solid #eee",
+              borderRadius: "6px"
+            }}
+          >
+            <h3>Get Started</h3>
+            <p>Lets us create your account</p>
+            <div style={{ width: "100%" }}>
+              <input
+                type="text"
+                placeholder="Full Name"
+                style={{
+                  width: "100%",
+                  border: 0,
+                  borderBottom: "2px solid #eee",
+                  lineHeight: "30px"
+                }}
+              />
+              <input
+                type="text"
+                placeholder="E-mail"
+                style={{
+                  width: "100%",
+                  border: 0,
+                  borderBottom: "2px solid #eee",
+                  lineHeight: "30px"
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Password"
+                style={{
+                  width: "100%",
+                  border: 0,
+                  borderBottom: "2px solid #eee",
+                  lineHeight: "30px"
+                }}
+              />
+              <div>
+                <Button type="primary" style={{ width: "100%", margin: "10px 0" }}>
+                  Get started
+                </Button>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: "13px"
+                }}
+              >
+                <p>
+                  Not registered? <a href="#">Create an account</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </Drawer>
+      </>
+    );
+
+} }
+
+</Playground>
+
+### Multi-Level Drawer
+
+Há a possibilidade de utilizar um Drawer com múltiplos níveis de abas.
+
+<Playground>
+{
+  () => {
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const [isDrawerChildrenOpen, setIsDrawerChildrenOpen] = React.useState(false);
+
+    const closeDrawer = () => {
+      setIsDrawerOpen(false);
+    };
+
+    const toggleDrawer = () => {
+      setIsDrawerOpen(!isDrawerOpen);
+    };
+
+    const closeChildrenDrawer = () => {
+      setIsDrawerChildrenOpen(false);
+    };
+
+    const toggleChildrenDrawer = () => {
+      setIsDrawerChildrenOpen(!isDrawerChildrenOpen);
+    };
+
+    return (
+      <>
+        <Button onClick={() => toggleDrawer()}>Open Drawer</Button>
+        <Drawer
+          title="Multi-Level Drawer"
+          visible={isDrawerOpen}
+          handleClose={closeDrawer}
+          backdrop={false}
+        >
+          <Button onClick={() => toggleChildrenDrawer()}>Two-Level Drawer</Button>
+          <Drawer
+            title="Two-Level Drawer"
+            visible={isDrawerChildrenOpen}
+            handleClose={closeChildrenDrawer}
+            isChild
+          >
+            <p>This is two-level drawer</p>
+          </Drawer>
+        </Drawer>
+      </>
+    );
+
+} }
+
+</Playground>
 
 ## API
 
