@@ -1,7 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Steps = ({ ...props }) => <div />;
+const Steps = ({
+  current,
+  initial,
+  size,
+  useDots,
+  vertical,
+  verticalLabels,
+  children,
+  ...props
+}) => {
+  // Get the number of steps
+  const count = React.Children.count(children);
+  const items = React.Children.map(children, (item, index) => {
+    const itemProps = {
+      stepNumber: index + 1,
+      status: "waiting"
+      // To do: Add properties for item style control
+    };
+
+    if (!item.props.status) {
+      if (index === current) {
+        itemProps.status = currentStatus;
+      } else if (index < current) {
+        itemProps.status = "finished";
+      }
+    }
+    return itemProps;
+  });
+
+  console.log(items);
+  console.log("Count:" + count);
+
+  return <div className="steps">{items}</div>;
+};
 
 Steps.propTypes = {
   /** Current step counting from 0. Using status of Step this will be overwritten. */
