@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { StepWrapper } from "./styles.js";
+
 const Steps = ({
   current,
   initial,
@@ -14,9 +16,15 @@ const Steps = ({
   // Get the number of steps
   const count = React.Children.count(children);
   const items = React.Children.map(children, (item, index) => {
+    const itemStyle = {
+      flexBasis: index < count - 1 ? `${100 / (count - 1)}%` : undefined,
+      maxWidth: index == count - 1 ? `${100 / count}%` : undefined
+    };
+
     const itemProps = {
       stepNumber: index + 1,
-      status: "waiting"
+      status: "waiting",
+      style: itemStyle
       // To do: Add properties for item style control
     };
 
@@ -27,13 +35,10 @@ const Steps = ({
         itemProps.status = "finished";
       }
     }
-    return itemProps;
+    return (item = React.cloneElement(item, itemProps));
   });
 
-  console.log(items);
-  console.log("Count:" + count);
-
-  return <div className="steps">{items}</div>;
+  return <StepWrapper className="steps">{items}</StepWrapper>;
 };
 
 Steps.propTypes = {

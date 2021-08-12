@@ -2,57 +2,58 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Icon from "../../general/icon/Icon.js";
-import { Tail } from "./styles.js";
+import { StepContainer, StepIcon, Tail } from "./styles.js";
 
-const Step = ({ title, description, icon, stepNumber, ...props }) => {
-  const STEP_STATUS_ICON = {
-    error: (
-      <Icon
-        kind="bold"
-        group="interface-essential"
-        category="alerts"
-        file="alert-triangle.svg"
-        size="64"
-        color="#000000"
-      />
-    ),
-    finished: (
-      <Icon
-        kind="bold"
-        group="interface-essential"
-        category="form-validation"
-        file="check-circle-1.svg"
-        size="64"
-        color="#000000"
-      />
-    ),
-    processing: null,
-    waiting: null
+const STEP_STATUS_ICON = {
+  error: (
+    <Icon
+      kind="bold"
+      group="interface-essential"
+      category="alerts"
+      file="alert-triangle.svg"
+      size="64"
+      color="#000000"
+    />
+  ),
+  finished: (
+    <Icon
+      kind="bold"
+      group="interface-essential"
+      category="form-validation"
+      file="check-circle-1.svg"
+      size="64"
+      color="#000000"
+    />
+  ),
+  processing: null,
+  waiting: null
+};
+
+const Step = ({ title, description, icon, ...props }) => {
+  const containerProps = {
+    stepNumber: props.stepNumber,
+    status: props.status,
+    icon
   };
 
-  const renderIcon = () => {
+  const renderIcon = () =>
     !icon ? (
       <span className="iconNode">
-        {STEP_STATUS_ICON[props.status]
-          ? STEP_STATUS_ICON[props.status]
-          : stepNumber}
+        {!STEP_STATUS_ICON[props.status] && props.stepNumber}
       </span>
     ) : (
       <span className="iconNode">{icon}</span>
     );
-  };
-
-  console.log("Status:" + props.status);
 
   return (
-    <div>
+    <StepContainer {...containerProps} style={props.style}>
       <Tail />
-      <div>{renderIcon()}</div>
+      <StepIcon className="icon">{renderIcon()}</StepIcon>
       <div className="content">
         {<div className="title">{title}</div>}
         {description && <div className="description">{description}</div>}
       </div>
-    </div>
+    </StepContainer>
   );
 };
 
