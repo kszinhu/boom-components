@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const backgroundbyStatus = status => {
   switch (status) {
@@ -45,6 +45,15 @@ export const Tail = styled.div`
   left: 15px;
   border-left-width: 1px;
   border-left-style: solid;
+  ${props =>
+    props.vertical &&
+    css`
+      top: 10px;
+      left: 15px;
+      bottom: 0;
+      border-left-width: 1px;
+      border-left-style: solid;
+    `};
 `;
 
 // Steps
@@ -53,6 +62,7 @@ export const StepWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   min-height: 35px;
+  ${props => props.vertical && "flex-direction: column"};
 `;
 
 // Step
@@ -103,14 +113,18 @@ export const StepTitle = styled.div`
     padding-right: 0;
   }
 
-  &:after {
-    position: absolute;
-    content: "";
-    top: 15px;
-    left: 100%;
-    width: 9999px;
-    border-top: 2px solid ${props => colorbyStatus(props.status, "tail")};
-  }
+  ${props =>
+    !props.vertical &&
+    css`
+      &:after {
+        position: absolute;
+        content: "";
+        top: 15px;
+        left: 100%;
+        width: 9999px;
+        border-top: 2px solid ${props => colorbyStatus(props.status, "tail")};
+      }
+    `}
 `;
 
 export const StepDescription = styled.div`
@@ -126,19 +140,32 @@ export const StepContainer = styled.div`
 
   flex-grow: ${props => props.stepNumber};
 
-  &:not(:first-child) {
-    padding-left: 50px;
+  ${props =>
+    !props.vertical
+      ? css`
+          &:not(:first-child) {
+            padding-left: 50px;
 
-    ${StepIcon} {
-      left: 10px;
-    }
-  }
+            ${StepIcon} {
+              left: 10px;
+            }
+          }
 
-  &:last-child {
-    flex-shrink: 0;
+          &:last-child {
+            flex-shrink: 0;
 
-    ${StepTitle}:after {
-      display: none;
-    }
-  }
+            ${StepTitle}:after {
+              display: none;
+            }
+          }
+        `
+      : css`
+          padding-bottom: 20px;
+          &:not(:first-child) {
+            margin-top: 10px;
+          }
+          &:last-child ${Tail} {
+            display: none;
+          }
+        `}
 `;

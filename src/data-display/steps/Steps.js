@@ -24,7 +24,8 @@ const Steps = ({
     const itemProps = {
       stepNumber: index + 1,
       status: "waiting",
-      style: itemStyle
+      style: itemStyle,
+      vertical
       // To do: Add properties for item style control
     };
 
@@ -38,7 +39,15 @@ const Steps = ({
     return (item = React.cloneElement(item, itemProps));
   });
 
-  return <StepWrapper className="steps">{items}</StepWrapper>;
+  const wrapperProps = {
+    vertical
+  };
+
+  return (
+    <StepWrapper className="steps" {...wrapperProps}>
+      {items}
+    </StepWrapper>
+  );
 };
 
 Steps.propTypes = {

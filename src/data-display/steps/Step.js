@@ -40,15 +40,21 @@ const Step = ({ title, description, icon, ...props }) => {
   const containerProps = {
     stepNumber: props.stepNumber,
     status: props.status,
+    vertical: props.vertical,
     icon
   };
 
   const titleProps = {
-    status: props.status
+    status: props.status,
+    vertical: props.vertical
   };
 
   const iconProps = {
     status: props.status
+  };
+
+  const tailProps = {
+    vertical: props.vertical
   };
 
   const renderIcon = () =>
@@ -62,11 +68,9 @@ const Step = ({ title, description, icon, ...props }) => {
       <span className="iconNode">{icon}</span>
     );
 
-  console.log("status" + props.stepNumber + "=" + props.status);
-
   return (
     <StepContainer {...containerProps} style={props.style}>
-      <Tail />
+      <Tail {...tailProps} />
       <StepIcon className="icon" {...iconProps}>
         {renderIcon()}
       </StepIcon>
