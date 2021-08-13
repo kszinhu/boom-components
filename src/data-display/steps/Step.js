@@ -43,7 +43,13 @@ const Step = ({ title, description, icon, ...props }) => {
     icon
   };
 
-  console.log(props.status);
+  const titleProps = {
+    status: props.status
+  };
+
+  const iconProps = {
+    status: props.status
+  };
 
   const renderIcon = () =>
     !icon ? (
@@ -56,12 +62,20 @@ const Step = ({ title, description, icon, ...props }) => {
       <span className="iconNode">{icon}</span>
     );
 
+  console.log("status" + props.stepNumber + "=" + props.status);
+
   return (
     <StepContainer {...containerProps} style={props.style}>
       <Tail />
-      <StepIcon className="icon">{renderIcon()}</StepIcon>
+      <StepIcon className="icon" {...iconProps}>
+        {renderIcon()}
+      </StepIcon>
       <StepContent className="content">
-        {<StepTitle className="title">{title}</StepTitle>}
+        {
+          <StepTitle className="title" {...titleProps}>
+            {title}
+          </StepTitle>
+        }
         {description && (
           <StepDescription className="description">
             {description}

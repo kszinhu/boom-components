@@ -1,5 +1,43 @@
 import styled from "styled-components";
 
+const backgroundbyStatus = status => {
+  switch (status) {
+    case "error":
+      return "#9D0208";
+
+    case "finished":
+      return "none";
+
+    case "waiting":
+      return "none";
+
+    case "processing":
+      return "#34c3ff";
+
+    default:
+      break;
+  }
+};
+
+const colorbyStatus = (status, context) => {
+  switch (status) {
+    case "error":
+      return "#9D0208";
+
+    case "finished":
+      return "#34c3ff";
+
+    case "waiting":
+      return "#8F96A3";
+
+    case "processing":
+      return context == "icon" ? "white" : "#8F96A3";
+
+    default:
+      break;
+  }
+};
+
 export const Tail = styled.div`
   position: absolute;
   border-color: #34c3ff;
@@ -33,12 +71,14 @@ export const StepIcon = styled.div`
   text-align: center;
   font-size: 16px;
   font-weight: bold;
-  color: #34c3ff;
+  background-color: ${props => backgroundbyStatus(props.status)};
+  color: ${props => colorbyStatus(props.status, "icon")};
   top: 0;
   left: 0;
 
   border-radius: 50%;
-  border: 2px solid #34c3ff;
+  border: 2px solid ${props => colorbyStatus(props.status, "icon")};
+  transition: background-color 0.3s, border-color 0.3s;
 
   & > span {
     width: 100%;
@@ -69,7 +109,7 @@ export const StepTitle = styled.div`
     top: 15px;
     left: 100%;
     width: 9999px;
-    border-top: 2px solid #34c3ff;
+    border-top: 2px solid ${props => colorbyStatus(props.status, "tail")};
   }
 `;
 
