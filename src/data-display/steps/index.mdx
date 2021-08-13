@@ -8,6 +8,8 @@ import { Playground, Props } from "docz";
 import Steps from "./Steps";
 import Step from "./Step";
 
+import Button from "../../general/button/Button.js";
+
 # Steps
 
 Steps component.
@@ -18,10 +20,38 @@ Steps component.
 
 <Playground>
   <Steps current={1}>
-    <Step title="Login" description="Terminated task"/>
-    <Step title="Verification"/>
-    <Step title="Done"/>
+    <Step title="Login" description="Terminated task" />
+    <Step title="Verification" />
+    <Step title="Done" />
   </Steps>
+</Playground>
+
+### Simulação
+
+<Playground>
+{
+  () => {
+    const [current, setCurrent] = React.useState(0);
+
+    const next = () => setCurrent(current + 1);
+    const prev = () => setCurrent(current - 1);
+
+    return (
+      <>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button onClick={prev} style={{ margin: '0.5em'}}>Anterior</Button>
+          <Button onClick={next} style={{ margin: '0.5em'}}>Próximo</Button>
+        </div>
+        <Steps current={current}>
+          <Step title="First"/>
+          <Step title="Second"/>
+          <Step title="Last"/>
+        </Steps>
+      </>
+    );
+  }
+}
+
 </Playground>
 
 ## API
