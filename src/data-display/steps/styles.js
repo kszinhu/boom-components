@@ -32,7 +32,7 @@ export const StepIcon = styled.div`
   height: 30px;
   text-align: center;
   font-size: 16px;
-  line-height: 1.75;
+  font-weight: bold;
   color: #34c3ff;
   top: 0;
   left: 0;
@@ -42,16 +42,21 @@ export const StepIcon = styled.div`
 
   & > span {
     width: 100%;
-    display: block;
+    height: 100%;
+    display: flex;
     text-align: center;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
 export const StepTitle = styled.div`
   position: relative;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.875;
   padding-right: 15px;
+  min-height: 16px;
   display: inline-block;
 
   &:empty {
@@ -66,6 +71,10 @@ export const StepTitle = styled.div`
     width: 9999px;
     border-top: 2px solid #34c3ff;
   }
+`;
+
+export const StepDescription = styled.div`
+  margin-top: 7px;
 `;
 
 export const StepContainer = styled.div`

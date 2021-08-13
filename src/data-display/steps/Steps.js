@@ -28,9 +28,9 @@ const Steps = ({
       // To do: Add properties for item style control
     };
 
-    if (!item.props.status) {
-      if (index === current) {
-        itemProps.status = currentStatus;
+    if (item.props.status) {
+      if (index == current) {
+        itemProps.status = "processing";
       } else if (index < current) {
         itemProps.status = "finished";
       }

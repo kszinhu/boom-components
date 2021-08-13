@@ -6,6 +6,7 @@ import {
   StepContainer,
   StepContent,
   StepTitle,
+  StepDescription,
   StepIcon,
   Tail
 } from "./styles.js";
@@ -26,9 +27,9 @@ const STEP_STATUS_ICON = {
       kind="bold"
       group="interface-essential"
       category="form-validation"
-      file="check-circle-1.svg"
-      size="64"
-      color="#000000"
+      file="check-1.svg"
+      size="16"
+      color="#34c3ff"
     />
   ),
   processing: null,
@@ -42,10 +43,14 @@ const Step = ({ title, description, icon, ...props }) => {
     icon
   };
 
+  console.log(props.status);
+
   const renderIcon = () =>
     !icon ? (
       <span className="iconNode">
-        {!STEP_STATUS_ICON[props.status] && props.stepNumber}
+        {STEP_STATUS_ICON[props.status]
+          ? STEP_STATUS_ICON[props.status]
+          : props.stepNumber}
       </span>
     ) : (
       <span className="iconNode">{icon}</span>
@@ -57,7 +62,11 @@ const Step = ({ title, description, icon, ...props }) => {
       <StepIcon className="icon">{renderIcon()}</StepIcon>
       <StepContent className="content">
         {<StepTitle className="title">{title}</StepTitle>}
-        {description && <div className="description">{description}</div>}
+        {description && (
+          <StepDescription className="description">
+            {description}
+          </StepDescription>
+        )}
       </StepContent>
     </StepContainer>
   );
