@@ -2,7 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Icon from "../../general/icon/Icon.js";
-import { StepContainer, StepIcon, Tail } from "./styles.js";
+import {
+  StepContainer,
+  StepContent,
+  StepTitle,
+  StepIcon,
+  Tail
+} from "./styles.js";
 
 const STEP_STATUS_ICON = {
   error: (
@@ -49,10 +55,10 @@ const Step = ({ title, description, icon, ...props }) => {
     <StepContainer {...containerProps} style={props.style}>
       <Tail />
       <StepIcon className="icon">{renderIcon()}</StepIcon>
-      <div className="content">
-        {<div className="title">{title}</div>}
+      <StepContent className="content">
+        {<StepTitle className="title">{title}</StepTitle>}
         {description && <div className="description">{description}</div>}
-      </div>
+      </StepContent>
     </StepContainer>
   );
 };
