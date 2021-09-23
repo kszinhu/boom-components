@@ -34,15 +34,14 @@ const Steps = ({
       size
     };
 
-    debugger;
-
-    if (item.props.status) {
-      if (index == current) {
-        itemProps.status = status;
-      } else if (index < current) {
-        itemProps.status = "finished";
-      }
+    if (index == current) {
+      itemProps.status = status;
+    } else if (index < current) {
+      itemProps.status = "finished";
+    } else if (index > current) {
+      itemProps.status = "waiting";
     }
+
     return (item = React.cloneElement(item, itemProps));
   });
 

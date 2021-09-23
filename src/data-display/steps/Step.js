@@ -112,7 +112,6 @@ Step.propTypes = {
 };
 
 Step.defaultProps = {
-  status: "waiting",
   icon: null,
   description: ""
 };
