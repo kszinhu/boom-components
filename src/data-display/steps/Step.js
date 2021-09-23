@@ -16,10 +16,10 @@ const STEP_STATUS_ICON = {
     <Icon
       kind="bold"
       group="interface-essential"
-      category="alerts"
-      file="alert-triangle.svg"
-      size="64"
-      color="#000000"
+      category="form-validation"
+      file="close.svg"
+      size="16"
+      color="#CC0000"
     />
   ),
   finished: (
@@ -63,7 +63,8 @@ const Step = ({ title, description, icon, ...props }) => {
   };
 
   const descriptionProps = {
-    size: props.size
+    size: props.size,
+    status: props.status
   };
 
   const renderIcon = () =>

@@ -11,6 +11,7 @@ const Steps = ({
   vertical,
   verticalLabels,
   children,
+  status,
   ...props
 }) => {
   // Get the number of steps
@@ -33,11 +34,11 @@ const Steps = ({
       size
     };
 
-    debugger
+    debugger;
 
     if (item.props.status) {
       if (index == current) {
-        itemProps.status = "processing";
+        itemProps.status = status;
       } else if (index < current) {
         itemProps.status = "finished";
       }
@@ -46,7 +47,8 @@ const Steps = ({
   });
 
   const wrapperProps = {
-    vertical
+    vertical,
+    status
   };
 
   return (
@@ -66,7 +68,9 @@ Steps.propTypes = {
   /** Steps with dot style. Vertical will be set to true. */
   useDots: PropTypes.bool,
   /** whether steps are vertical */
-  vertical: PropTypes.bool
+  vertical: PropTypes.bool,
+  /** current step status */
+  status: PropTypes.oneOf(["error", "finished", "processing", "waiting"])
 };
 
 Steps.defaultProps = {
@@ -74,7 +78,8 @@ Steps.defaultProps = {
   initial: 0,
   size: "default",
   useDots: false,
-  vertical: false
+  vertical: false,
+  status: "processing"
 };
 
 export default Steps;

@@ -20,9 +20,9 @@ Steps component.
 ### Uso básico
 
 <Playground>
-  <Steps current={1}>
-    <Step title="Login" description="Terminated task" />
-    <Step title="Verification" />
+  <Steps current={1} status="error">
+    <Step title="Login" description="OK, you're in!" />
+    <Step title="Verification" description="Ops... Something went wrong :/" />
     <Step title="Done" />
   </Steps>
 </Playground>
@@ -55,7 +55,8 @@ Steps component.
 }
 </Playground>
 
-Na vertical:
+### Na vertical:
+  É possível usar o componente na vertical, basta passar o atributo `vertical` como `true`.
 
 <Playground>
 {
@@ -74,8 +75,8 @@ Na vertical:
         </div>
         <Steps current={current} vertical>
           <Step title="First" description="This a Description"/>
-          <Step title="Second"/>
-          <Step title="Last"/>
+          <Step title="Second" description="This a Description"/>
+          <Step title="Last" description="This a Description"/>
         </Steps>
       </>
     );
@@ -84,6 +85,7 @@ Na vertical:
 </Playground>
 
 ### Usando a versão miniatura
+  Pode-se usar o componente na versão miniatura, basta passar o atributo `size` como `small`.
 
 <Playground>
 {
@@ -102,8 +104,8 @@ Na vertical:
         </div>
         <Steps current={current} size="small">
           <Step title="First" description="This a Description"/>
-          <Step title="Second"/>
-          <Step title="Last"/>
+          <Step title="Second" description="This a Description"/>
+          <Step title="Last" description="This a Description"/>
         </Steps>
       </>
     );

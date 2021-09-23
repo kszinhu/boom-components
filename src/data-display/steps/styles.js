@@ -1,16 +1,8 @@
 import styled, { css } from "styled-components";
 
+// TO DO: change this function
 const backgroundbyStatus = status => {
   switch (status) {
-    case "error":
-      return "#9D0208";
-
-    case "finished":
-      return "none";
-
-    case "waiting":
-      return "none";
-
     case "processing":
       return "#34c3ff";
 
@@ -20,10 +12,9 @@ const backgroundbyStatus = status => {
 };
 
 const colorbyStatus = (status, context) => {
-  context == "tail" ? console.log(status) : null;
   switch (status) {
     case "error":
-      return "#9D0208";
+      return context == "tail" ? "#8F96A3" : "#CC0000";
 
     case "finished":
       return "#34c3ff";
@@ -32,7 +23,7 @@ const colorbyStatus = (status, context) => {
       return "#8F96A3";
 
     case "processing":
-      return context == "icon" ? "white" : "#8F96A3";
+      return context == "tail" ? "#8F96A3" : "#FFF";
 
     default:
       break;
@@ -110,6 +101,7 @@ export const StepIcon = styled.div`
 export const StepTitle = styled.div`
   position: relative;
   font-size: ${props => (props.size == "default" ? 16 : 14)}px;
+  ${props => props.status == "error" && "color: #CC0000"};
   font-weight: bold;
   line-height: 1.875;
   padding-right: 10px;
@@ -137,6 +129,7 @@ export const StepDescription = styled.div`
   font-size: ${props => (props.size == "default" ? 15 : 14)}px;
   font-weight: normal;
   margin-top: ${props => (props.size == "default" ? 7 : 0)}px;
+  ${props => props.status == "error" && "color: #CC0000"};
 `;
 
 export const StepContainer = styled.div`
