@@ -16,18 +16,24 @@ const Steps = ({
   // Get the number of steps
   const count = React.Children.count(children);
   const items = React.Children.map(children, (item, index) => {
-    const itemStyle = {
-      flexBasis: index < count - 1 ? `${100 / (count - 1)}%` : undefined,
-      maxWidth: index == count - 1 ? `${100 / count}%` : undefined
-    };
+    const itemStyle = !vertical
+      ? {
+          flexBasis: index < count - 1 ? `${100 / (count - 1)}%` : undefined,
+          maxWidth: index == count - 1 ? `${100 / count}%` : undefined
+        }
+      : {
+          width: "100%"
+        };
 
     const itemProps = {
       stepNumber: index + 1,
       status: "waiting",
       style: itemStyle,
-      vertical
-      // To do: Add properties for item style control
+      vertical,
+      size
     };
+
+    debugger
 
     if (item.props.status) {
       if (index == current) {
@@ -60,9 +66,7 @@ Steps.propTypes = {
   /** Steps with dot style. Vertical will be set to true. */
   useDots: PropTypes.bool,
   /** whether steps are vertical */
-  vertical: PropTypes.bool,
-  /** whether labels are in vertical direction */
-  verticalLabels: PropTypes.bool
+  vertical: PropTypes.bool
 };
 
 Steps.defaultProps = {
@@ -70,8 +74,7 @@ Steps.defaultProps = {
   initial: 0,
   size: "default",
   useDots: false,
-  vertical: false,
-  verticalLabels: false
+  vertical: false
 };
 
 export default Steps;

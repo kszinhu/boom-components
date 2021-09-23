@@ -73,7 +73,35 @@ Na vertical:
           <span style={{ padding: '0 0.5em', borderRadius: '5px', color: 'white', backgroundColor: 'black' }}>{current}</span>
         </div>
         <Steps current={current} vertical>
-          <Step title="First"/>
+          <Step title="First" description="This a Description"/>
+          <Step title="Second"/>
+          <Step title="Last"/>
+        </Steps>
+      </>
+    );
+  }
+}
+</Playground>
+
+### Usando a versão miniatura
+
+<Playground>
+{
+  () => {
+    const [current, setCurrent] = React.useState(0);
+
+    const next = () => setCurrent(current + 1 < 4 ? current + 1 : current);
+    const prev = () => setCurrent(current - 1 > 0 ? current - 1 : 0);
+
+    return (
+      <>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Button onClick={prev} style={{ margin: '0.5em'}}>Anterior</Button>
+          <Button onClick={next} style={{ margin: '0.5em'}}>Próximo</Button>
+          <span style={{ padding: '0 0.5em', borderRadius: '5px', color: 'white', backgroundColor: 'black' }}>{current}</span>
+        </div>
+        <Steps current={current} size="small">
+          <Step title="First" description="This a Description"/>
           <Step title="Second"/>
           <Step title="Last"/>
         </Steps>

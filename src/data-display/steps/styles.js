@@ -20,6 +20,7 @@ const backgroundbyStatus = status => {
 };
 
 const colorbyStatus = (status, context) => {
+  context == "tail" ? console.log(status) : null;
   switch (status) {
     case "error":
       return "#9D0208";
@@ -38,21 +39,25 @@ const colorbyStatus = (status, context) => {
   }
 };
 
+const large_iconDiameter = 30;
+const small_iconDiameter = 24;
+
 export const Tail = styled.div`
   position: absolute;
-  border-color: #34c3ff;
-  top: 30px;
-  left: 15px;
-  border-left-width: 1px;
+  top: 70%;
+  border-left-width: 2px;
   border-left-style: solid;
   ${props =>
-    props.vertical &&
-    css`
-      top: 10px;
-      left: 15px;
+    props.vertical
+      ? css`
+      top: 40px
+      left: ${props => (props.size == "default" ? 16 : 13)}px;
       bottom: 0;
-      border-left-width: 1px;
-      border-left-style: solid;
+      border-color: ${props => colorbyStatus(props.status, "tail")};
+    `
+      : css`
+      top: 15px
+      left: 100%
     `};
 `;
 
@@ -76,10 +81,12 @@ export const StepContent = styled.div`
 export const StepIcon = styled.div`
   display: flex;
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: ${props =>
+    props.size == "default" ? large_iconDiameter : small_iconDiameter}px;
+  height: ${props =>
+    props.size == "default" ? large_iconDiameter : small_iconDiameter}px;
   text-align: center;
-  font-size: 16px;
+  font-size: ${props => (props.size == "default" ? 16 : 14)}px;
   font-weight: bold;
   background-color: ${props => backgroundbyStatus(props.status)};
   color: ${props => colorbyStatus(props.status, "icon")};
@@ -102,11 +109,10 @@ export const StepIcon = styled.div`
 
 export const StepTitle = styled.div`
   position: relative;
-  font-size: 16px;
+  font-size: ${props => (props.size == "default" ? 16 : 14)}px;
   font-weight: bold;
   line-height: 1.875;
-  padding-right: 15px;
-  min-height: 16px;
+  padding-right: 10px;
   display: inline-block;
 
   &:empty {
@@ -128,7 +134,9 @@ export const StepTitle = styled.div`
 `;
 
 export const StepDescription = styled.div`
-  margin-top: 7px;
+  font-size: ${props => (props.size == "default" ? 15 : 14)}px;
+  font-weight: normal;
+  margin-top: ${props => (props.size == "default" ? 7 : 0)}px;
 `;
 
 export const StepContainer = styled.div`
@@ -144,9 +152,8 @@ export const StepContainer = styled.div`
     !props.vertical
       ? css`
           &:not(:first-child) {
-            padding-left: 50px;
-
-            ${StepIcon} {
+            padding-left: ${props => (props.size == "default" ? 50 : 45)}px
+              ${StepIcon} {
               left: 10px;
             }
           }

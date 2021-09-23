@@ -41,20 +41,29 @@ const Step = ({ title, description, icon, ...props }) => {
     stepNumber: props.stepNumber,
     status: props.status,
     vertical: props.vertical,
+    size: props.size,
     icon
   };
 
   const titleProps = {
     status: props.status,
-    vertical: props.vertical
+    vertical: props.vertical,
+    size: props.size
   };
 
   const iconProps = {
-    status: props.status
+    status: props.status,
+    size: props.size
   };
 
   const tailProps = {
-    vertical: props.vertical
+    vertical: props.vertical,
+    status: props.status,
+    size: props.size
+  };
+
+  const descriptionProps = {
+    size: props.size
   };
 
   const renderIcon = () =>
@@ -81,7 +90,7 @@ const Step = ({ title, description, icon, ...props }) => {
           </StepTitle>
         }
         {description && (
-          <StepDescription className="description">
+          <StepDescription className="description" {...descriptionProps}>
             {description}
           </StepDescription>
         )}
