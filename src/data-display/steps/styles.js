@@ -1,15 +1,7 @@
 import styled, { css } from "styled-components";
 
-// TO DO: change this function
-const backgroundbyStatus = status => {
-  switch (status) {
-    case "processing":
-      return "#34c3ff";
-
-    default:
-      break;
-  }
-};
+const large_iconDiameter = 30;
+const small_iconDiameter = 24;
 
 const colorbyStatus = (status, context) => {
   switch (status) {
@@ -29,9 +21,6 @@ const colorbyStatus = (status, context) => {
       break;
   }
 };
-
-const large_iconDiameter = 30;
-const small_iconDiameter = 24;
 
 export const Tail = styled.div`
   position: absolute;
@@ -79,7 +68,7 @@ export const StepIcon = styled.div`
   text-align: center;
   font-size: ${props => (props.size == "default" ? 16 : 14)}px;
   font-weight: bold;
-  background-color: ${props => backgroundbyStatus(props.status)};
+  background-color: ${props => props.status == "processing" && "#34c3ff"};
   color: ${props => colorbyStatus(props.status, "icon")};
   top: 0;
   left: 0;
