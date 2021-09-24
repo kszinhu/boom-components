@@ -59,32 +59,36 @@ export const StepContent = styled.div`
 `;
 
 export const StepIcon = styled.div`
-  display: flex;
-  position: absolute;
-  width: ${props =>
-    props.size == "default" ? large_iconDiameter : small_iconDiameter}px;
-  height: ${props =>
-    props.size == "default" ? large_iconDiameter : small_iconDiameter}px;
-  text-align: center;
-  font-size: ${props => (props.size == "default" ? 16 : 14)}px;
-  font-weight: bold;
-  background-color: ${props => props.status == "processing" && "#34c3ff"};
-  color: ${props => colorbyStatus(props.status, "icon")};
-  top: 0;
-  left: 0;
+  ${props =>
+    !props.useDots &&
+    css`
+      display: flex;
+      position: absolute;
+      width: ${props =>
+        props.size == "default" ? large_iconDiameter : small_iconDiameter}px;
+      height: ${props =>
+        props.size == "default" ? large_iconDiameter : small_iconDiameter}px;
+      text-align: center;
+      font-size: ${props => (props.size == "default" ? 16 : 14)}px;
+      font-weight: bold;
+      background-color: ${props => props.status == "processing" && "#34c3ff"};
+      color: ${props => !props.useDots && colorbyStatus(props.status, "icon")};
+      top: 0;
+      left: 0;
 
-  border-radius: 50%;
-  border: 2px solid ${props => colorbyStatus(props.status, "icon")};
-  transition: background-color 0.3s, border-color 0.3s;
+      border-radius: 50%;
+      border: 2px solid ${props => colorbyStatus(props.status, "icon")};
+      transition: background-color 0.3s, border-color 0.3s;
 
-  & > span {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
+      & > span {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+      }
+    `};
 `;
 
 export const StepTitle = styled.div`
@@ -126,16 +130,18 @@ export const StepContainer = styled.div`
   position: relative;
   padding: 0;
   margin: 0;
-  padding-left: 40px;
-
+  padding-left: ${props => (props.useDots ? 30 : 40)}px;
   flex-grow: ${props => props.stepNumber};
 
   ${props =>
     !props.vertical
       ? css`
           &:not(:first-child) {
-            padding-left: ${props => (props.size == "default" ? 50 : 45)}px
-              ${StepIcon} {
+            padding-left: ${props => {
+              if (props.useDots) return props.size == "default" ? 35 : 30;
+              else return props.size == "default" ? 50 : 45;
+            }}px;
+            ${StepIcon} {
               left: 10px;
             }
           }
@@ -157,4 +163,17 @@ export const StepContainer = styled.div`
             display: none;
           }
         `}
+`;
+
+export const IconDot = styled.span`
+  ::after {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: ${props => colorbyStatus(props.status, "dot")};
+  }
 `;

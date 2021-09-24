@@ -31,7 +31,8 @@ const Steps = ({
       status: "waiting",
       style: itemStyle,
       vertical,
-      size
+      size,
+      useDots
     };
 
     if (index == current) {
@@ -47,7 +48,8 @@ const Steps = ({
 
   const wrapperProps = {
     vertical,
-    status
+    status,
+    useDots,
   };
 
   return (

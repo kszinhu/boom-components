@@ -8,7 +8,8 @@ import {
   StepTitle,
   StepDescription,
   StepIcon,
-  Tail
+  Tail,
+  IconDot
 } from "./styles.js";
 
 const STEP_STATUS_ICON = {
@@ -36,12 +37,13 @@ const STEP_STATUS_ICON = {
   waiting: null
 };
 
-const Step = ({ title, description, icon, ...props }) => {
+const Step = ({ title, description, icon, useDots, ...props }) => {
   const containerProps = {
     stepNumber: props.stepNumber,
     status: props.status,
     vertical: props.vertical,
     size: props.size,
+    useDots,
     icon
   };
 
@@ -53,7 +55,8 @@ const Step = ({ title, description, icon, ...props }) => {
 
   const iconProps = {
     status: props.status,
-    size: props.size
+    size: props.size,
+    useDots
   };
 
   const tailProps = {
@@ -67,20 +70,32 @@ const Step = ({ title, description, icon, ...props }) => {
     status: props.status
   };
 
-  const renderIcon = () =>
-    !icon ? (
-      <span className="iconNode">
-        {STEP_STATUS_ICON[props.status]
-          ? STEP_STATUS_ICON[props.status]
-          : props.stepNumber}
-      </span>
-    ) : (
-      <span className="iconNode">{icon}</span>
-    );
+  const dotProps = {
+    status: props.status
+  };
+
+  const renderIcon = () => {
+    if (!useDots) {
+      if (!icon) {
+        return (
+          <span className="icon-node">
+            {STEP_STATUS_ICON[props.status]
+              ? STEP_STATUS_ICON[props.status]
+              : props.stepNumber}
+          </span>
+        );
+      } else {
+        return <span className="icon-node">{icon}</span>;
+      }
+    } else {
+      debugger;
+      return <IconDot {...dotProps} />;
+    }
+  };
 
   return (
     <StepContainer {...containerProps} style={props.style}>
-      <Tail {...tailProps} />
+      <Tail className="tail" {...tailProps} />
       <StepIcon className="icon" {...iconProps}>
         {renderIcon()}
       </StepIcon>
